@@ -1,0 +1,52 @@
+REM Para instalarlo en UNIX
+```
+#!/bin/bash
+echo "---------------------"
+echo "Installing ffmpeg ..."
+echo "---------------------"
+cd /root/Desktop/
+git clone git://source.ffmpeg.org/ffmpeg.git ffmpeg
+cd ffmpeg
+./configure
+make
+make install
+cd ..
+rm -rf ffmpeg
+echo "-----------------------------"
+echo "FFMPEG Installation Finished."
+echo "-----------------------------"
+sleep 1000000
+```
+
+REM Para obtener informacion sobre la codificacion de un archivo
+ffprobe -v error -show_format -show_streams -print_format json "input.mp4" >>formatoVideo.txt
+
+REM Recordatorio de que se puede capturar el escritorio con ffmpeg
+http://trac.ffmpeg.org/wiki/Capture/Desktop
+
+REM Recordatorio de que para separar un video en varias partes se requiere hacer una ejecucion para cada parte
+ffmpeg -i "input.mp4" -map 0 -default_mode infer_no_subs -ss 00:00:00 -to 01:56:43 -c copy output01.mp4
+ffmpeg -i "input.mp4" -map 0 -default_mode infer_no_subs -ss 01:56:43 -to 04:25:04 -c copy output02.mp4
+
+REM Recordatorio para hacer pruebas encodeando solo unos segundos del archivo
+ffmpeg -i "Input.mp3" -ss 2:02:13.50 -t 188.00 "Output.mp3"
+
+REM Recordatorio para subir/bajar el volumen del audio (editar los dB al gusto)
+ffmpeg -i $INPUT_FILE -vcodec copy -af "volume=10dB" $OUTPUT_FILE
+
+REM Recordatorio para incluir softsubs en el archivo de video
+ffmpeg -i input.mkv -c copy -c:s mov_text output.mp4
+
+REM Recordatorio para incluir hardsubs en el archivo de video
+ffmpeg -i input.mkv -vf subtitles=input.mkv output.mp4
+
+REM Codificacion para Video en PlayStation 3 (incluyendo subs)
+ffmpeg -y -i input.mkv -vcodec libx264 -level 41 -crf 28 -threads 0 -c:a aac -ab 128k -ac 2 -ar 48000 -c:s mov_text output.mp4
+
+REM Codificacion para Video en PlayStation Portable (el emu de la PS Vita no lo reproduce)
+ffmpeg -i input.mp4 -flags +bitexact -vcodec libx264 -profile:v baseline -level 3.0 -s 480x272 -r 29.97 -b:v 384k -acodec aac -b:a 96k -ar 48000 -f psp -strict -2 OUTPUTFILE.MP4
+
+REM codificacion para videos usables en GODOT 3.X
+REM https://docs.godotengine.org/en/3.6/tutorials/animation/playing_videos.html
+ffmpeg -i input.mp4 -q:v 6 -q:a 6 output.ogv
+
