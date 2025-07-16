@@ -28,6 +28,13 @@ REM Recordatorio de que para separar un video en varias partes se requiere hacer
 ffmpeg -i "input.mp4" -map 0 -default_mode infer_no_subs -ss 00:00:00 -to 01:56:43 -c copy output01.mp4
 ffmpeg -i "input.mp4" -map 0 -default_mode infer_no_subs -ss 01:56:43 -to 04:25:04 -c copy output02.mp4
 
+REM Recordatorio para concatenar varios ficheros en uno solo
+```concatena.txt
+file 'video01.mp4'
+file 'video02.mp4'
+```
+ffmpeg -f concat -i concatena.txt -c copy -bsf:a aac_adtstoasc output.mp4
+
 REM Recordatorio para hacer pruebas encodeando solo unos segundos del archivo
 ffmpeg -i "Input.mp3" -ss 2:02:13.50 -t 188.00 "Output.mp3"
 
