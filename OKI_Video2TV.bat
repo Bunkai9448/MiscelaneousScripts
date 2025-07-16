@@ -26,7 +26,7 @@ if not exist "%INPUT_FOLDER%" (
     exit /b
 )
 
-REM Procesa cada archivo MP3 en la carpeta de entrada
+REM Procesa cada archivo de video en la carpeta de entrada
 for %%F in ("%INPUT_FOLDER%\*.mkv" "%INPUT_FOLDER%\*.mp4") do (
     echo Procesando: %%F
     ffmpeg -i "%%F" -vf scale=720:480:flags=lanczos -codec:v libxvid -b:v 1000k -codec:a libmp3lame -b:a 12k -af aresample=async=1 -f avi "aVideo2TV\tv_%%~nF.avi"
