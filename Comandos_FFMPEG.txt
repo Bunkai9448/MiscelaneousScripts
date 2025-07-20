@@ -44,8 +44,12 @@ ffmpeg -i $INPUT_FILE -vcodec copy -af "volume=10dB" $OUTPUT_FILE
 REM Recordatorio para incluir softsubs en el archivo de video
 ffmpeg -i input.mkv -c copy -c:s mov_text output.mp4
 
+REM Recordatorio para extraer softsubs del video
+ffmpeg -i "input_withSoftsubs.mkv" -map 0:s:0 -c:s copy "subtitles.srt"
+ffmpeg -i "input_withSoftsubs.mkv" -map 0:s:0 -c:s copy "subtitles.ass"
+
 REM Recordatorio para incluir hardsubs en el archivo de video
-ffmpeg -i input.mkv -vf subtitles=input.mkv output.mp4
+ffmpeg -i input.mkv -vf subtitles=input.srt output.mp4
 
 REM Codificacion para Video en PlayStation 3 (incluyendo subs)
 ffmpeg -y -i input.mkv -vcodec libx264 -level 41 -crf 28 -threads 0 -c:a aac -ab 128k -ac 2 -ar 48000 -c:s mov_text output.mp4
