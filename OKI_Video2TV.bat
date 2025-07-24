@@ -31,6 +31,8 @@ for %%F in ("%INPUT_FOLDER%\*.mkv" "%INPUT_FOLDER%\*.mp4") do (
     echo Procesando: %%F
     REM otras resoluciones que reconoce son: scale=720:540 ; scale=640:360
     ffmpeg -i "%%F" -vf scale=720:480:flags=lanczos -codec:v libxvid -b:v 1000k -codec:a libmp3lame -b:a 12k -af aresample=async=1 -f avi "aVideo2TV\tv_%%~nF.avi"
+    REM cuando haya que incluir subs, tienen que ser hardsubs para que el bitrate no se exceda
+    REM ffmpeg -i "%%F" -vf "scale=720:540:flags=lanczos,subtitles='%%~nF.srt'" -codec:v libxvid -b:v 1000k -codec:a libmp3lame -b:a 12k -af aresample=async=1 -f avi "aVideo2TV\tv_%%~nF.avi"
 )
 
 echo.
