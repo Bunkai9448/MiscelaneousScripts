@@ -29,7 +29,7 @@ if not exist "%INPUT_FOLDER%" (
 REM Procesa cada archivo MP3 en la carpeta de entrada
 for %%F in ("%INPUT_FOLDER%\*.mp3" "%INPUT_FOLDER%\*.m4a" "%INPUT_FOLDER%\*.aac" "%INPUT_FOLDER%\*.flac") do (
     echo Procesando: %%F
-    ffmpeg -i "%%F" -codec:a libmp3lame -b:a 128k -f mp3 "AudioEnTV\tv_%%~nxF.mp3"
+    ffmpeg -i "%%F" -codec:a libmp3lame -b:a 128k -f mp3 "AudioEnTV\tv_%%~nF.mp3"
 )
 
 echo.
