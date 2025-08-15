@@ -51,13 +51,14 @@ for index, chapter in enumerate(chapters):
     safe_title = "".join(c for c in chapter_title if c.isalnum() or c in (' ', '_')).replace(' ', '_')
     # Add zero-padded ordinal number
     ordinal = f"{index:03d}"
-    output_file = f"{base_name}_{ordinal}_{safe_title}.m4a"
+    output_file = f"{base_name}_{ordinal}_{safe_title}.mp3"
     ffmpeg_cmd = [
         "ffmpeg",
         "-i", input_file,
         "-ss", str(start_time),
         "-to", str(end_time),
-        "-c", "copy",
+        "-c:a", "mp3",
+        "-b:a", "128k",
         output_file
     ]
 
@@ -72,8 +73,10 @@ print("Splitting complete!")
 # Create directory and move files
 try:
     os.makedirs("AudiolibroChapetered", exist_ok=True)
-    subprocess.run(["move", "*.m4a", ".\\AudiolibroChapetered"], check=True, shell=True)
+    subprocess.run(["move", "*.mp3", ".\\AudiolibroChapetered"], check=True, shell=True)
 except subprocess.CalledProcessError as e:
     print(f"Error moving files: {e}")
 except OSError as e:
     print(f"Error creating directory: {e}")
+
+print("MP3 Chapters moved to AudiolibroChapetered!")
