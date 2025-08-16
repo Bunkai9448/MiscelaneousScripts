@@ -61,7 +61,7 @@ for index, chapter in enumerate(chapters):
         "-ss", str(start_time),
         "-to", str(end_time),
         "-map", "0:a",  # Select only the audio stream, avoid problems with covers and other non audio stuff
-        "-c:a", "mp3",
+        "-c:a", "libmp3lame",
         "-b:a", "128k",
         output_file
     ]
@@ -88,5 +88,6 @@ except subprocess.CalledProcessError as e:
     print(f"Error moving files: {e}")
 except OSError as e:
     print(f"Error creating directory: {e}")
+
 
 print("MP3 Chapters moved to AudiolibroChapetered!")
