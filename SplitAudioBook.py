@@ -38,6 +38,9 @@ except json.JSONDecodeError as e:
 
 # Extract chapters
 chapters = data.get("chapters", [])
+if not chapters:
+    print(f"No chapters found in {input_file}")
+    exit(1)
 
 # Base name for output files (remove extension from input file)
 base_name = os.path.splitext(input_file)[0]
@@ -57,6 +60,7 @@ for index, chapter in enumerate(chapters):
         "-i", input_file,
         "-ss", str(start_time),
         "-to", str(end_time),
+        "-map", "0:a",  # Select only the audio stream, avoid problems with covers and other non audio stuff
         "-c:a", "mp3",
         "-b:a", "128k",
         output_file
@@ -69,6 +73,12 @@ for index, chapter in enumerate(chapters):
         print(f"Error splitting chapter {chapter_title}: {e}")
 
 print("Splitting complete!")
+
+# Clean up temporary data file
+try:
+    os.remove(output_data)
+except OSError:
+    print(f"Error removing {output_data}")
 
 # Create directory and move files
 try:
