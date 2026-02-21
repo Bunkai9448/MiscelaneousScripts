@@ -2,6 +2,9 @@
 chcp 65001 >nul
 setlocal EnableDelayedExpansion
 
+set "BOOK_TITLE=Ｎ１文法"
+echo Creando audiolibro: %BOOK_TITLE%
+
 echo Crear lista de archivos
 if exist lista.txt del lista.txt
 for /f "delims=" %%f in ('dir /b *.mp3') do (
@@ -31,7 +34,7 @@ for /f "delims=" %%f in ('dir /b *.mp3') do (
 )
 
 echo Crear audiolibro m4b
-ffmpeg -f concat -safe 0 -i lista.txt -i metadata.txt -map_metadata 1 -c:a aac -b:a 64k -metadata encoding=UTF-8 audiolibro.m4b
+ffmpeg -f concat -safe 0 -i lista.txt -i metadata.txt -map_metadata 1 -c:a aac -b:a 64k -metadata title="%BOOK_TITLE%" -metadata encoding=UTF-8 audiolibro.m4b
 
 echo.
 echo Audiolibro creado correctamente
