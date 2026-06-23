@@ -1,16 +1,18 @@
 @echo off
 
+set weekday=Miercoles
+set FILENAME=radio.mkv
+
 echo "Trae el archivo grabado"
-move "C:\Users\Name\Videos\radio.mkv" "%cd%"
+move "C:\Users\Name\Videos\%FILENAME%" "%cd%"
 
 echo "Conviertelo a mp3"
-ffmpeg -i "radio.mkv" -map 0:a -codec:a libmp3lame -b:a 128k "FM_OVF.mp3"
+ffmpeg -i "%FILENAME%" -map 0:a -codec:a libmp3lame -b:a 128k "FM Abashiri_OVF.mp3"
 
 echo "Separa los audios en secciones para cada programa"
 ffmpeg -i "FM_OVF.mp3" -ss 1:30:00.00 -to 4:00:59.00 -c copy "000_Have a good Day.mp3"
 
 echo "Obten la fecha de hoy"
-set weekday=Miercoles
 for /f "tokens=1-3 delims=/ " %%a in ('date /t') do (
     set day=%%a
     set month=%%b
