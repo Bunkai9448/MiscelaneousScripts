@@ -2,7 +2,9 @@
 
 Este repositorio contiene scripts para UNIX y para Windows, que reuso con/para diferentes dispositivos con hardware completamente variable. Además, en su mayoria su optimizacion no merece la pena dado su uso iregular en el tiempo. Sin embargo, al incluir algunos formatos muy particulares que es facil olvidar de un dia para otro he preferido tenerlos aqui para acceder a ellos de forma rapida y sencilla.
 
-![Aegisubs settings](https://github.com/Bunkai9448/MiscelaneousScripts/blob/main/AegisubsSettings.png)
+![Aegisubs settings](https://github.com/Bunkai9448/MiscelaneousScripts/blob/main/images/AegisubsSettings.png)
+
+![Meteo_settings](https://github.com/Bunkai9448/MiscelaneousScripts/blob/main/images/Meteo_settings.png)
 
 ## Descargo de responsabilidad:
 
